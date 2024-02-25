@@ -1,6 +1,6 @@
 pandas
 numpy
 flask
-django
+Django
 tensorflow
 mysql-connector-python
