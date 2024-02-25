@@ -3,3 +3,4 @@ numpy
 flask
 django
 tensorflow
+mysql-connector-python
