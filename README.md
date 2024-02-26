@@ -12,5 +12,5 @@ Sharpi is company has many section like finance market and real estate
 
 
 >[!NOTE]
-> I am working at this project and it is not finished.
+> I am working at this project and it is not finished yet!
 
