@@ -8,4 +8,4 @@ Sharpi is company has many section like finance market and real estate
  ### 2) Realestate section is SharpiHome
 
  
- ### 3) Car section is SharpiMashin
+ ### 3) Car section is SharpiCar
