@@ -1,7 +1,10 @@
 from flask import Flask, render_template, redirect, request, session, json
 from flask_session.__init__ import Session
-from datetime import timedelta
+from datetime import timedelta, datetime
 from Login.login import Check_login
+from Trades.main import demo_list_open_order
+import requests
+
 app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
@@ -60,6 +63,48 @@ def logout():
 #--------------------------------------------------------------------
 ########################## End Login
 #--------------------------------------------------------------------
+#--------------------------------------------------------------------
+########################## Home
+#--------------------------------------------------------------------
+@app.route("/Home", methods=["POST", "GET"])
+def App_main_page():
+    try:
+        if not session.get("Username"):
+            return render_template("/Login/index.html")
+        else:
+            path = session.get('Path')
+            now = datetime.now()
+            url = f"https://open-api.bingx.com/openApi/swap/v2/quote/klines?symbol=BTC-USDT&interval=5m&startTime=1578492800000&endTime={int(now.timestamp() * 1000)}&limit=1440"
+            headers = {'x-api-key': '09ba90f6-dcd0-42c0-8c13-5baa6f2377d0'}
+
+            resp = requests.get(url, headers=headers)
+            x = resp.json()
+            array_data = []
+            array_data_Date = []
+            array_data_Open = []
+            array_data_High = []
+            array_data_Low = []
+            array_data_Close = []
+            array_data_Volume = []
+            print(resp)
+            for i in x['data']:
+                array_data_Date.append(str(i['time']))
+                array_data_Open.append(float(i['open']))
+                array_data_High.append(float(i['high']))
+                array_data_Low.append(float(i['low']))
+                array_data_Close.append(float(i['close']))
+                array_data_Volume.append(float(i['volume']))
+            list_trades = demo_list_open_order()
+            print(list_trades)
+            window = 600
+            return render_template("/Home/index.html",open=array_data_Open[len(array_data_Open) - window:],
+                           close=array_data_Close[len(array_data_Close) - window:],
+                           high=array_data_High[len(array_data_High) - window:],
+                           low=array_data_Low[len(array_data_Low) - window:],
+                           date=array_data_Date[len(array_data_Date) - window:],
+                           valoum=array_data_Volume[len(array_data_Volume) - window:], window=600, list_trades=list_trades, user=session.get('Username'), pathmain=path, email=session.get('email'))
+    except:
+        return render_template("/Error/index.html")
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True, port=1001)
