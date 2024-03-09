@@ -1,0 +1,254 @@
+{% extends './base/base.html' %}
+{% block bodys %}
+
+                        <div class="nk-content">
+                            <div class="container-fluid">
+                            <div class="nk-content-inner">
+                                <div class="nk-content-body">
+                                    <div class="nk-block-head nk-block-head-sm">
+                                        <div class="nk-block-between">
+                                            <div class="nk-block-head-content">
+                                                <h3 class="nk-block-title page-title">
+                                                     {{user}}
+                                                </h3>
+                                                <div class="nk-block-des text-soft">
+                                                    <p> خوش اومدی </p>
+                                                </div>
+                                            </div>
+                                            <!-- .nk-block-head-content -->
+                                            <div class="nk-block-head-content">
+                                                <div class="toggle-wrap nk-block-tools-toggle">
+                                                    <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1" data-target="pageMenu"><em class="icon ni ni-more-v"></em></a>
+                                                    <div class="toggle-expand-content" data-content="pageMenu">
+                                                        <ul class="nk-block-tools g-3">
+                                                            <li>
+                                                                <div class="dropdown">
+
+                                                                </div>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- .nk-block-head-content -->
+                                        </div>
+                                        <!-- .nk-block-between -->
+                                    </div>
+                                    <!-- .nk-block-head -->
+                                    <div class="nk-block">
+                                        <div class="row g-gs">
+
+                                            <!-- .col -->
+
+                                            <!-- .col -->
+                                            <div class="col-xxl-8">
+                                                <div class="card card-bordered card-full">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">
+                                                                    <span class="me-2">معاملات</span>
+                                                                    <a href="/Home/Trade_update" class="link d-none d-sm-inline">بروزرسانی لیست</a>
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="card-inner p-0 border-top">
+                                                        <div class="nk-tb-list nk-tb-orders">
+                                                            <div class="nk-tb-item nk-tb-head">
+                                                                <div class="nk-tb-col">
+                                                                    <span>شماره معامله</span>
+                                                                </div>
+                                                                <div class="nk-tb-col tb-col-sm">
+                                                                    <span>نام سهم</span>
+                                                                </div>
+                                                                <div class="nk-tb-col tb-col-md">
+                                                                    <span>قیمت خرید</span>
+                                                                </div>
+                                                                <div class="nk-tb-col tb-col-lg">
+                                                                    <span>قیمت فعلی</span>
+                                                                </div>
+                                                                <div class="nk-tb-col"><span>درصد سود</span></div>
+                                                                <div class="nk-tb-col"><span>نوع معامله</span></div>
+                                                                <div class="nk-tb-col"><span>&nbsp;</span></div>
+                                                            </div>
+                                                            {%for i in Get_Trade_History_list%}
+                                                            <div class="nk-tb-item">
+                                                                <div class="nk-tb-col">
+                                                                    <span class="tb-lead"><a href="/Home/Trade?P_ID={{i[0]}}">#{{i[0]}}</a></span>
+                                                                </div>
+                                                                <div class="nk-tb-col tb-col-sm">
+                                                                    <div class="user-card">
+                                                                        <div class="user-name">
+                                                                            <span class="tb-lead">{{i[1]}}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="nk-tb-col tb-col-md">
+                                                                    <span class="tb-sub">{{i[4]}}</span>
+                                                                </div>
+                                                                <div class="nk-tb-col tb-col-lg">
+                                                                    <span class="tb-sub">{{i[7]}}</span>
+                                                                </div>
+                                                                {%if i[6] < 0%}
+                                                                    <div class="nk-tb-col">
+                                                                        <span class="tb-sub"><span class="badge rounded-pill bg-danger">{{i[6]*-1}}</span></span>
+                                                                    </div>
+                                                                {%else%}
+                                                                    <div class="nk-tb-col">
+                                                                        <span class="tb-sub"><span class="badge rounded-pill bg-success">{{i[6]}}</span></span>
+                                                                    </div>
+                                                                {%endif%}
+                                                                <div class="nk-tb-col tb-col-lg">
+
+                                                                    <span class="tb-sub"><span class="badge bg-outline-dark">{{i[3]}}</span></span>
+                                                                </div>
+                                                                <div class="nk-tb-col nk-tb-col-action">
+                                                                    <div class="dropdown">
+                                                                        <a class="text-soft dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-xs">
+                                                                            <ul class="link-list-plain">
+                                                                                <li><a href="/Home/Trade_charts_multi_favorit_on_trade?P_ID={{i[0]}}&side={{i[3]}}"><em class="icon ni ni-bar-chart-alt"></em><span>نمودار</span></a></li>
+                                                                                <li><a href="/Home/Delet?P_ID={{i[0]}}"><em class="icon ni ni-trash"></em><span>حذف</span></a></li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            {%endfor%}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- .card -->
+                                            </div>
+                                            <!-- .col -->
+                                            <div class="col-md-6 col-xxl-4">
+                                                <div class="card card-bordered card-full">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">
+                                                                    <span class="me-2">معاملات محبوب</span>
+
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="card-inner p-0 border-top">
+                                                        <div class="nk-tb-list nk-tb-orders">
+                                                            <div class="nk-tb-item nk-tb-head">
+                                                                <div class="nk-tb-col tb-col-sm">
+                                                                    <span>نام دارایی</span>
+                                                                </div>
+                                                                <div class="nk-tb-col tb-col-md">
+                                                                    <span>قیمت ورود</span>
+                                                                </div>
+                                                                <div class="nk-tb-col tb-col-lg">
+                                                                    <span>قیمت فعلی</span>
+                                                                </div>
+                                                                <div class="nk-tb-col"><span>درصد تغییرات</span></div>
+                                                                <div class="nk-tb-col"><span>&nbsp;</span></div>
+                                                            </div>
+                                                            {%for i in Get_Favorit_Trade_History_list%}
+                                                            <div class="nk-tb-item">
+                                                                <div class="nk-tb-col">
+                                                                    <span class="tb-lead"><a class="badge badge-sm badge-dim bg-outline-info d-none d-md-inline-flex" href="/Home/Trade_charts_multi_trade_on_favorits?P_ID={{i[8]}}">{{i[1]}}</a></span>
+                                                                </div>
+                                                                <div class="nk-tb-col tb-col-sm">
+                                                                    <div class="user-card">
+                                                                        <div class="user-name">
+                                                                            <span class="tb-lead">{{i[6]}}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="nk-tb-col tb-col-md">
+                                                                    <span class="tb-sub">{{i[7]}}</span>
+                                                                </div>
+
+                                                                {%if i[5] < 0%}
+                                                                    <div class="nk-tb-col">
+                                                                        <span class="tb-sub"><span class="badge rounded-pill bg-danger">{{i[5]}}</span></span>
+                                                                    </div>
+                                                                {%else%}
+                                                                    <div class="nk-tb-col">
+                                                                        <span class="tb-sub"><span class="badge rounded-pill bg-success">{{i[5]}}</span></span>
+                                                                    </div>
+                                                                {%endif%}
+                                                                <div class="nk-tb-col nk-tb-col-action">
+                                                                    <div class="dropdown">
+                                                                        <a class="text-soft dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-xs">
+                                                                            <ul class="link-list-plain">
+                                                                                <li><a href="/Home/Trade_charts_multi_trade_on_favorits?P_ID={{i[8]}}"><em class="icon ni ni-bar-chart-alt"></em><span>نمودار</span></a></li>
+                                                                                <li><a href="/Home/Delet_F?P_ID={{i[8]}}"><em class="icon ni ni-trash"></em><span>حذف</span></a></li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            {%endfor%}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- .card -->
+                                            </div>
+                                            <!-- .col -->
+
+                                            <!-- .col -->
+                                        </div>
+                                        <!-- .row -->
+                                    </div>
+                                    <!-- .nk-block -->
+                                </div>
+                            </div>
+                        </div>
+</div>
+{% endblock %}
+
+{% block menu %}
+                        <div class="nk-sidebar-content">
+                            <div class="nk-sidebar-menu" data-simplebar>
+                                <ul class="nk-menu">
+
+                                    <!-- .nk-menu-item -->
+                                    <li class="nk-menu-heading">
+                                        <h6 class="overline-title text-primary-alt">
+                                            منو
+                                        </h6>
+                                    </li>
+                                    <!-- .nk-menu-heading -->
+                                    <li class="nk-menu-item has-sub">
+                                        <a href="/Home/Trade" class="nk-menu-link nk-menu-toggle">
+                                            <span class="nk-menu-icon"><em class="icon ni ni-card-view"></em></span>
+                                            <span class="nk-menu-text">معاملات</span>
+                                        </a>
+                                        <ul class="nk-menu-sub">
+                                            <li class="nk-menu-item">
+                                                <a href="/Home/Add_New_Trade" class="nk-menu-link"><span class="nk-menu-text">معامله جدید</span></a>
+                                            </li>
+                                            <li class="nk-menu-item">
+                                                <a href="/Home/Add_New_Trade_F" class="nk-menu-link"><span class="nk-menu-text">معامله محبوب جدید</span></a>
+                                            </li>
+                                        </ul>
+                                        <!-- .nk-menu-sub -->
+                                    </li>
+
+
+                                    <!-- .nk-menu-item -->
+
+                                    <!-- .nk-menu-item -->
+
+                                    <!-- .nk-menu-item -->
+
+                                </ul>
+                                <!-- .nk-menu -->
+                            </div>
+                            <!-- .nk-sidebar-menu -->
+                        </div>
+{% endblock %}
+{% block notification %}
+
+{% endblock %}
