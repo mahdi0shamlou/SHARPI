@@ -77,9 +77,14 @@ class Buy_melk_New_data():
                 time.sleep(10)
             except Exception as e:
                 print(f'####   We Have Error and It is : {e} ###')
+class Buy_melk_New_details():
+    def __init__(self):
+        pass
+
 
 x = Buy_melk_New_data()
 x.Start()
+
 
 '''
 CREATE TABLE Tokens_alredy_have(id INT AUTO_INCREMENT PRIMARY KEY, token VARCHAR(20));
