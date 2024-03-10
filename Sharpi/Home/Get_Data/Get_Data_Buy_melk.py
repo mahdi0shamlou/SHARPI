@@ -72,10 +72,14 @@ class Buy_melk_New_data():
                 print("MySQL connection is closed")
     def Start(self):
         while True:
-            time.sleep(300)
-            Tokens_in_db = self.Check_token()# Get 1000 Tokens form DB From last
-            Tokens_should_insert_to_db = self.New_Melk(Tokens_in_db)# Check new token that get from Divar is valid or not then return a list
-            self.Save_token_into_DB(Tokens_should_insert_to_db)# this is insert a list of token in db
+            try:
+                Tokens_in_db = self.Check_token()# Get 1000 Tokens form DB From last
+                Tokens_should_insert_to_db = self.New_Melk(Tokens_in_db)# Check new token that get from Divar is valid or not then return a list
+                self.Save_token_into_DB(Tokens_should_insert_to_db)# this is insert a list of token in db
+                time.sleep(10)
+            except Exception as e:
+                print(f'####   We Have Error and It is : {e} ###')
+
 
 x = Buy_melk_New_data()
 x.Start()
