@@ -79,7 +79,7 @@ class Buy_melk_New_data():
                 print(f'####   We Have Error and It is : {e} ###')
 class Buy_melk_New_details():
     def __init__(self):
-        pass
+        self.Link_Address_for_token_details = 'https://api.divar.ir/v8/posts-v2/web/'
     def Get_one_token(self):
         try:
             connection = mysql.connector.connect(host="localhost",
@@ -107,17 +107,22 @@ class Buy_melk_New_details():
                 print(list_lab)
                 print("MySQL connection is closed")
                 return list_lab
-    def Get_details_from_divar(self):
+    def Get_details_from_divar(self, token):
+        self.Link_Address_for_req = self.Link_Address_for_token_details + token
+        resp = requests.get(self.Link_Address_for_req)
+        resp = json.loads(resp.text)
+        print(resp)
         pass
     def Start(self):
         token = self.Get_one_token()
-
+        self.Get_details_from_divar(token[0])
         pass
 '''
 x = Buy_melk_New_data()
 x.Start()
 '''
 z = Buy_melk_New_details()
+z.Start()
 
 
 
