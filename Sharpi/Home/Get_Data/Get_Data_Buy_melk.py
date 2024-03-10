@@ -3,8 +3,6 @@ import requests
 import mysql.connector
 import json
 import time
-
-
 class Buy_melk_New_data():
     def __init__(self):
         self.Page_address = 'https://api.divar.ir/v8/web-search/tehran/buy-residential?business-type=personal'
@@ -56,9 +54,9 @@ class Buy_melk_New_data():
                                                  database="SHARPI_HOME")
             cursor = connection.cursor()
             for i in Token_list:
-                sql_select_query = """INSERT INTO Tokens_alredy_have (id, token) VALUES(%s, %s)"""
+                sql_select_query = """INSERT INTO Tokens_alredy_have (id, token, is_details) VALUES(%s, %s, %s)"""
                 # set variable in query
-                cursor.execute(sql_select_query,(None, i,))
+                cursor.execute(sql_select_query,(None, i, 0,))
 
                 # fetch result
                 connection.commit()
@@ -80,11 +78,20 @@ class Buy_melk_New_data():
             except Exception as e:
                 print(f'####   We Have Error and It is : {e} ###')
 
-
 x = Buy_melk_New_data()
 x.Start()
 
 '''
-
 CREATE TABLE Tokens_alredy_have(id INT AUTO_INCREMENT PRIMARY KEY, token VARCHAR(20));
+ALTER TABLE Tokens_alredy_have ADD is_details int;
+describe Tokens_alredy_have;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int         | NO   | PRI | NULL    | auto_increment |
+| token      | varchar(20) | YES  |     | NULL    |                |
+| is_details | int         | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+3 rows in set (0.01 sec)
+
 '''
