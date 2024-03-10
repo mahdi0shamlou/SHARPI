@@ -80,10 +80,46 @@ class Buy_melk_New_data():
 class Buy_melk_New_details():
     def __init__(self):
         pass
+    def Get_one_token(self):
+        try:
+            connection = mysql.connector.connect(host="localhost",
+                                                 user='root',
+                                                 password='ya mahdi',
+                                                 database="SHARPI_HOME")
+            cursor = connection.cursor()
+            sql_select_query = """select * from Tokens_alredy_have WHERE is_details=0 ORDER BY ID DESC LIMIT 1"""
+            cursor.execute(sql_select_query)
+            record = cursor.fetchall()
+            list_lab = []
+            for i in range(0, len(record)):
+                #list_lab_lab = []
+                #list_lab_lab.append(record[i][0])
+                #list_lab_lab.append()
+                list_lab.append(record[i][1])
+        except mysql.connector.Error as error:
+            # print("Failed to get record from MySQL table: {}".format(error))
+            pass
 
+        finally:
+            if connection.is_connected():
+                cursor.close()
+                connection.close()
+                print(list_lab)
+                print("MySQL connection is closed")
+                return list_lab
+    def Get_details_from_divar(self):
+        pass
+    def Start(self):
+        token = self.Get_one_token()
 
+        pass
+'''
 x = Buy_melk_New_data()
 x.Start()
+'''
+z = Buy_melk_New_details()
+
+
 
 
 '''
