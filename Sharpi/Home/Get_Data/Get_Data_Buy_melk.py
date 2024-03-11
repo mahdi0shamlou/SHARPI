@@ -370,7 +370,7 @@ class Buy_melk_New_details():
                             print('!!!!!!!!!!!!!!!!!!!!!!!')
                             print('error in update')
                             print('!!!!!!!!!!!!!!!!!!!!!!!')
-                            break
+                            time.sleep(200)
                     else:
                         print('!!!!!!!!!!!!!!!!!!!!!!!')
                         print('error in insert')
@@ -384,9 +384,9 @@ class Buy_melk_New_details():
                         print('!!!!!!!!!!!!!!!!!!!!!!!')
                         print('error in update')
                         print('!!!!!!!!!!!!!!!!!!!!!!!')
-                        break
+                        time.sleep(200)
             else:
-                break
+                time.sleep(200)
             time.sleep(2)
 
 
@@ -395,10 +395,10 @@ class Buy_melk_New_details():
 '''
 x = Buy_melk_New_data()
 x.Start()
-'''
+
 z = Buy_melk_New_details()
 z.Start()
-
+'''
 
 
 
