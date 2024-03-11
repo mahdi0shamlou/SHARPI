@@ -4,3 +4,4 @@ flask
 Django
 tensorflow
 mysql-connector-python
+mysqlclient
