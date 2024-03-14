@@ -292,7 +292,7 @@ class Buy_melk_New_details():
                 return_list_of_details.append(kaf_seramik)
                 print('-----------------------------\n')
                     #print(section_listdata['widgets'][0])
-
+                return_list_of_details.append(0)
                 # ------------------------------------- end
                 return tuple(return_list_of_details)
             else:
@@ -311,7 +311,7 @@ class Buy_melk_New_details():
                                                  database="SHARPI_HOME")
             cursor = connection.cursor()
 
-            sql_select_query = """INSERT INTO Aparteman_buy_details (id, token, mahal_english, image_count, rent, price, city,title,city_persian,mahal_persian,time_unavailabe,lat_map,long_map,meter,time_make,room,price_total,price_meter,tabagheh,asansor,parking,balkon,shofazh,kooler,kafe_seramick) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
+            sql_select_query = """INSERT INTO Aparteman_buy_details (id, token, mahal_english, image_count, rent, price, city,title,city_persian,mahal_persian,time_unavailabe,lat_map,long_map,meter,time_make,room,price_total,price_meter,tabagheh,asansor,parking,balkon,shofazh,kooler,kafe_seramick,is_phone_add) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
             # set variable in query
             cursor.execute(sql_select_query, tupel_data)
 
@@ -389,7 +389,117 @@ class Buy_melk_New_details():
                 time.sleep(200)
             time.sleep(2)
 
+class Buy_melk_New_phone_number():
+    def __init__(self):
+        self.link_get_req = 'https://api.divar.ir/v8/postcontact/web/contact_info/'
+    def Get_token_from_db(self):
+        try:
+            connection = mysql.connector.connect(host="localhost",
+                                                 user='root',
+                                                 password='ya mahdi',
+                                                 database="SHARPI_HOME")
+            cursor = connection.cursor()
+            sql_select_query = """select * from Aparteman_buy_details WHERE is_phone_add = 0 ORDER BY id DESC LIMIT 1"""
+            cursor.execute(sql_select_query)
+            record = cursor.fetchall()
+            #list_lab = []
+            ids = 0
+            tokens = ''
+            for i in range(0, len(record)):
+                # list_lab_lab = []
+                # list_lab_lab.append(record[i][0])
+                # list_lab_lab.append()
+                ids = record[i][0]
+                tokens = record[i][1]
 
+                #list_lab.append(record[i][1])
+        except mysql.connector.Error as error:
+            print("Failed to get record from MySQL table: {}".format(error))
+            pass
+
+        finally:
+            if connection.is_connected():
+                cursor.close()
+                connection.close()
+                print("MySQL connection is closed")
+                return tokens, ids
+    def Send_req(self, token):
+        self.Link_Address_for_req = self.link_get_req + token
+        headers = {
+            'Authorization':'Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaWQiOiJlMWEzMTUwOS01NjM2LTQ3OTUtODdiMS03M2VkMjUwZTlmMjciLCJ1c2VyLXR5cGUiOiJwZXJzb25hbCIsInVzZXItdHlwZS1mYSI6Ilx1MDY3ZVx1MDY0Nlx1MDY0NCBcdTA2MzRcdTA2MmVcdTA2MzVcdTA2Y2MiLCJ1c2VyIjoiMDkyMDA5ODkyMDIiLCJpc3MiOiJhdXRoIiwidmVyaWZpZWRfdGltZSI6MTcxMDM1ODUyNywiaWF0IjoxNzEwMzU4NTI3LCJleHAiOjE3MTU1NDI1Mjd9.tSQmMQwc6sKTJJSREG1JtnhjV03rzvYs_0WtmChRXf8',
+        }
+        resp = requests.get(self.Link_Address_for_req, headers=headers)
+        print(resp.text)
+        resp = json.loads(resp.text)
+        return resp
+    def insert_phone_number(self, token, ids, english_number, persian_number):
+        try:
+            connection = mysql.connector.connect(host="localhost",
+                                                 user='root',
+                                                 password='ya mahdi',
+                                                 database="SHARPI_HOME")
+            cursor = connection.cursor()
+
+            sql_select_query = """INSERT INTO phone_buy_apartment (id, token_details, id_details, e_phone, p_phone) VALUES(%s, %s, %s, %s, %s)"""
+            # set variable in query
+            cursor.execute(sql_select_query, (None, token, ids, english_number, persian_number,))
+
+            # fetch result
+            connection.commit()
+            print(f"Record inserted successfully into phone_buy_apartment table And token was : {token}")
+        except mysql.connector.Error as error:
+            print("Failed to get record from MySQL table: {}".format(error))
+        finally:
+            if connection.is_connected():
+                cursor.close()
+                connection.close()
+                print("MySQL connection is closed")
+    def update_details_token(self, ids):
+        res_update = 0
+        try:
+            connection = mysql.connector.connect(host="localhost",
+                                                 user='root',
+                                                 password='ya mahdi',
+                                                 database="SHARPI_HOME")
+            cursor = connection.cursor()
+            sql_update_query = """Update Aparteman_buy_details set is_phone_add = 1 WHERE id = %s"""
+            # print(str(data[5]))
+
+            cursor.execute(sql_update_query, (ids,))
+            connection.commit()
+            print(f"Record Updated successfully : {ids}")
+            res_update = 1
+        except mysql.connector.Error as error:
+            print("Failed to get record from MySQL table: {}".format(error))
+            res_update = -1
+        finally:
+            if connection.is_connected():
+                cursor.close()
+                connection.close()
+                print("MySQL connection is closed")
+                return res_update
+    def Start(self):
+        while True:
+            token, ids = self.Get_token_from_db()
+            if ids != 0:
+                print(token)
+                try:
+                    mobile_data = self.Send_req(token)
+                    persian_mobile = mobile_data['widget_list'][0]['data']['value']
+                    english_mobile = mobile_data['widget_list'][0]['data']['action']['payload']['phone_number']
+                    self.insert_phone_number(token, ids, english_mobile, persian_mobile)
+                    self.update_details_token(ids)
+                except Exception as e:
+                    print('EEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRRRROOOOOOOOOOOOOOOOOOOOOOORRRRRRRRRRRRRR')
+                    print(e)
+                    #self.update_details_token(ids)
+                    break
+            else:
+                print(ids)
+                print(token)
+                break
+
+            #time.sleep(200)
 
 
 '''
@@ -399,7 +509,8 @@ x.Start()
 z = Buy_melk_New_details()
 z.Start()
 '''
-
+y = Buy_melk_New_phone_number()
+y.Start()
 
 
 '''
@@ -449,6 +560,19 @@ mysql> DESCRIBE Aparteman_buy_details;
 +-----------------+--------------+------+-----+---------+----------------+
 25 rows in set (0.02 sec)
 SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'Aparteman_buy_details'
-
 ALTER TABLE Aparteman_buy_details MODIFY price BIGINT;
+ALTER TABLE Aparteman_buy_details ADD is_phone_add int;
+
+CREATE TABLE phone_buy_apartment(id INT AUTO_INCREMENT PRIMARY KEY, token_details VARCHAR(20), id_details INT, e_phone VARCHAR(20), p_phone VARCHAR(20));
+mysql> describe phone_buy_apartment;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| id            | int         | NO   | PRI | NULL    | auto_increment |
+| token_details | varchar(20) | YES  |     | NULL    |                |
+| id_details    | int         | YES  |     | NULL    |                |
+| e_phone       | varchar(20) | YES  |     | NULL    |                |
+| p_phone       | varchar(20) | YES  |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+
 '''

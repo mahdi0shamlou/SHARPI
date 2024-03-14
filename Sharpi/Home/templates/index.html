@@ -7,6 +7,9 @@
     <link href="{% static 'index.css' %}" rel="stylesheet">
 </head>
 <body>
-<h1>Home section<h1>
+<h1>Home section</h1>
+    {%for i in Apartments%}
+     {{i}}<br>
+    {%endfor%}
 </body>
 </html>

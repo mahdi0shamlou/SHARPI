@@ -8,4 +8,5 @@ def index_home_section(request):
     my_list1 = Aparteman_buy_details.objects.all().values()
     print(my_list)
     print(my_list1)
-    return render(request, 'index.html')
+    data_send_to_html = {'Apartments' : my_list1}
+    return render(request, 'index.html', data_send_to_html)
