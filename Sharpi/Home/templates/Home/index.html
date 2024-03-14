@@ -1,4 +1,4 @@
-{% extends './base/base.html' %}
+{% extends "../base/base.html" %}
 {% block bodys %}
 
                         <div class="nk-content">
@@ -8,12 +8,7 @@
                                     <div class="nk-block-head nk-block-head-sm">
                                         <div class="nk-block-between">
                                             <div class="nk-block-head-content">
-                                                <h3 class="nk-block-title page-title">
-                                                     {{user}}
-                                                </h3>
-                                                <div class="nk-block-des text-soft">
-                                                    <p> خوش اومدی </p>
-                                                </div>
+
                                             </div>
                                             <!-- .nk-block-head-content -->
                                             <div class="nk-block-head-content">
@@ -48,113 +43,18 @@
                                                         <div class="card-title-group">
                                                             <div class="card-title">
                                                                 <h6 class="title">
-                                                                    <span class="me-2">نمودار</span>
-                                                                    <a href="/Home" class="link d-none d-sm-inline">بروزرسانی</a>
+                                                                    <span class="me-2">اطلاعات</span>
+                                                                    <a href="/Home" class="link d-none d-sm-inline">شماره تلفن</a>
                                                                 </h6>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div id="chartContainer" style="width: 100%;"></div>
+                                                    <div class="card-inner p-0 border-top" id="details">
+                                                        hello
+                                                    </div>
                                                 </div>
 
 
-                                                <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-                                                <script>
-                                                        window.onload = function () {
-
-                                                        var chart = new CanvasJS.Chart("chartContainer", {
-                                                            animationEnabled: true,
-                                                            theme: "light2", // "light1", "light2", "dark1", "dark2"
-                                                            exportEnabled: true,
-                                                            title:{
-                                                                text: "BTC Chart"
-                                                            },
-                                                            subtitles: [{
-                                                                text: "BTC"
-                                                            }],
-
-
-                                                            axisY2: {
-                                                                prefix: "$",
-                                                                suffix: "bn",
-                                                                title: "Revenue & Income",
-                                                                tickLength: 0
-                                                            },
-                                                            toolTip: {
-                                                                shared: true
-                                                            },
-                                                            legend: {
-                                                                reversed: true,
-                                                                cursor: "pointer",
-                                                                itemclick: toggleDataSeries
-                                                            },
-                                                            data: [{
-                                                                type: "candlestick",
-                                                                showInLegend: true,
-                                                                name: "Crypto",
-                                                                yValueFormatString: "$#,##0.00",
-                                                                risingColor: "green",
-                                                                fallingColor: "red",
-
-                                                                dataPoints: [   // Y: [Open, High ,Low, Close]
-                                                                    {%for i in range(0, window)%}
-
-                                                                        { x:{{i}}, y: [{{open[i]}},{{high[i]}}, {{low[i]}}, {{close[i]}}], color: {{open[i]}} < {{close[i]}} ? "green" : "red" },
-
-                                                                    {%endfor%}
-
-                                                                ]
-                                                            },
-
-                                                        {%for i in list_trades%}
-                                                            {%if i['side'] == 'BUY'%}
-                                                                {type: "line",
-                                                                    showInLegend: true,
-                                                                    name: "line",
-
-                                                                    yValueFormatString: "$#,##0.00bn",
-                                                                    xValueFormatString: "MMMM",
-                                                                    color:"green",
-                                                                    dataPoints: [
-                                                                    {%for z in range(0, window)%}
-                                                                        { x: {{z}}, y: {{i['price']}} },
-                                                                    {%endfor%}
-
-                                                                    ]
-                                                                },
-                                                            {%else%}
-                                                              {type: "line",
-                                                                    showInLegend: true,
-                                                                    name: "line",
-
-                                                                    yValueFormatString: "$#,##0.00bn",
-                                                                    xValueFormatString: "MMMM",
-                                                                    color:"red",
-                                                                    dataPoints: [
-                                                                    {%for z in range(0, window)%}
-                                                                        { x: {{z}}, y: {{i['price']}} },
-                                                                    {%endfor%}
-
-                                                                    ]
-                                                                },
-                                                            {%endif%}
-
-                                                        {%endfor%}
-                                                            ]
-                                                        });
-                                                        chart.render();
-
-                                                        function toggleDataSeries(e) {
-                                                            if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-                                                                e.dataSeries.visible = false;
-                                                            } else {
-                                                                e.dataSeries.visible = true;
-                                                            }
-                                                            e.chart.render();
-                                                        }
-
-                                                        }
-                                                        </script>
                                                 <!-- .card -->
                                             </div>
                                             <!-- .col -->
@@ -164,7 +64,7 @@
                                                         <div class="card-title-group">
                                                             <div class="card-title">
                                                                 <h6 class="title">
-                                                                    <span class="me-2">سفارشات</span>
+                                                                    <span class="me-2">آگهی ها</span>
 
                                                                 </h6>
                                                             </div>
@@ -175,56 +75,66 @@
                                                         <div class="nk-tb-list nk-tb-orders">
                                                             <div class="nk-tb-item nk-tb-head">
                                                                 <div class="nk-tb-col tb-col-sm">
-                                                                    <span>نام دارایی</span>
+                                                                    <span>شماره</span>
                                                                 </div>
                                                                 <div class="nk-tb-col tb-col-md">
-                                                                    <span>قیمت ورود</span>
+                                                                    <span>محله</span>
                                                                 </div>
                                                                 <div class="nk-tb-col tb-col-lg">
-                                                                    <span>حجم ورود</span>
+                                                                    <span>متراژ</span>
                                                                 </div>
-                                                                <div class="nk-tb-col"><span>نوع معامله</span></div>
+                                                                <div class="nk-tb-col"><span>قیمت کل</span></div>
                                                                 <div class="nk-tb-col"><span>&nbsp;</span></div>
                                                             </div>
-                                                            {%for i in list_trades%}
+                                                            {%for i in Apartments%}
                                                             <div class="nk-tb-item">
                                                                 <div class="nk-tb-col">
-                                                                    <span class="tb-lead"><a class="badge badge-sm badge-dim bg-outline-info d-none d-md-inline-flex" href="/Home/Trade_charts_multi_trade_on_favorits?P_ID={{i[8]}}">{{i['symbol']}}</a></span>
+                                                                    <span class="tb-lead"><a class="badge badge-sm badge-dim bg-outline-info d-none d-md-inline-flex" onclick="change_details('{{i.id}}','{{i.token}}','{{i.price}}','{{i.meter}}','{{i.city}}','{{i.mahal_persian}}')">{{i.id}}</a></span>
                                                                 </div>
                                                                 <div class="nk-tb-col tb-col-sm">
                                                                     <div class="user-card">
                                                                         <div class="user-name">
-                                                                            <span class="tb-lead">{{i['price']}}</span>
+                                                                            <span class="tb-lead">{{i.mahal_persian}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="nk-tb-col tb-col-md">
-                                                                    <span class="tb-sub">{{i['origQty']}}</span>
+                                                                    <span class="tb-sub">{{i.meter}}</span>
                                                                 </div>
 
-                                                                {%if i['side'] == 'BUY'%}
-                                                                    <div class="nk-tb-col">
-                                                                        <span class="tb-sub"><span class="badge rounded-pill bg-success">{{i['side']}}</span></span>
-                                                                    </div>
-                                                                {%else%}
-                                                                    <div class="nk-tb-col">
-                                                                        <span class="tb-sub"><span class="badge rounded-pill bg-danger">{{i['side']}}</span></span>
-                                                                    </div>
-                                                                {%endif%}
+                                                                <div class="nk-tb-col">
+                                                                    <span class="tb-sub"><span class="badge bg-outline-secondary">{{i.price}}</span></span>
+                                                                </div>
+
                                                                 <div class="nk-tb-col nk-tb-col-action">
                                                                     <div class="dropdown">
                                                                         <a class="text-soft dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-xs">
                                                                             <ul class="link-list-plain">
-                                                                                <li><a href="/Home/Trade_charts_multi_trade_on_favorits?P_ID={{i[8]}}"><em class="icon ni ni-bar-chart-alt"></em><span>نمودار</span></a></li>
-                                                                                <li><a href="/Home/Delet_F?P_ID={{i[8]}}"><em class="icon ni ni-trash"></em><span>حذف</span></a></li>
+                                                                                <li><a href="/Home/Trade_charts_multi_trade_on_favorits?P_ID={{i.id}}"><em class="icon ni ni-bar-chart-alt"></em><span>نمودار</span></a></li>
+                                                                                <li><a href="/Home/Delet_F?P_ID={{i.id}}"><em class="icon ni ni-trash"></em><span>حذف</span></a></li>
                                                                             </ul>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             {%endfor%}
+
                                                         </div>
+                                                    </div>
+                                                    <div class="card-inner ">
+                                                            <nav>
+                                                                <ul class="pagination pagination-lg">
+                                                                    <li class="page-item">
+                                                                        <a class="page-link" href="/?page={{page|add:1}}" aria-label="Prev"><span aria-hidden="true">صفحه بعد</span></a>
+                                                                    </li>
+                                                                    {%if page != 1%}
+                                                                    <li class="page-item">
+                                                                        <a class="page-link" href="/?page={{page|add:-1}}" aria-label="Next"><span aria-hidden="true">صفحه قبل</span></a>
+                                                                    </li>
+                                                                    {%endif%}
+                                                                </ul>
+                                                            </nav>
                                                     </div>
                                                 </div>
                                                 <!-- .card -->
@@ -238,9 +148,23 @@
                                     <!-- .nk-block -->
                                 </div>
                             </div>
+                                <button value="x" onclick="change_details('str')">xcxc</button>
                         </div>
 
 </div>
+
+<script>
+
+    function change_details(id,token,price,meter,city,mahal){
+       var x = `<div class="form-group">
+                    <label class="form-label" for="default-01">id</label>
+                    <div class="form-control-wrap">
+                        <input type="text" class="form-control" id="default-01" placeholder="`+token+`">
+                    </div>
+                </div>`;
+        document.getElementById("details").innerHTML = x;
+    }
+</script>
 {% endblock %}
 
 {% block menu %}
@@ -257,20 +181,34 @@
                                     <!-- .nk-menu-heading -->
                                     <li class="nk-menu-item has-sub">
                                         <a href="/Home/Trade" class="nk-menu-link nk-menu-toggle">
-                                            <span class="nk-menu-icon"><em class="icon ni ni-card-view"></em></span>
-                                            <span class="nk-menu-text">معاملات</span>
+                                            <span class="nk-menu-icon"><em class="icon ni ni-home"></em></span>
+                                            <span class="nk-menu-text">فروش مسکونی</span>
                                         </a>
                                         <ul class="nk-menu-sub">
                                             <li class="nk-menu-item">
-                                                <a href="/Home/Add_New_Trade" class="nk-menu-link"><span class="nk-menu-text">معامله جدید</span></a>
+                                                <a href="/Home/Add_New_Trade" class="nk-menu-link"><span class="nk-menu-text">آپارتمان</span></a>
                                             </li>
                                             <li class="nk-menu-item">
-                                                <a href="/Home/Add_New_Trade_F" class="nk-menu-link"><span class="nk-menu-text">معامله محبوب جدید</span></a>
+                                                <a href="/Home/Add_New_Trade_F" class="nk-menu-link"><span class="nk-menu-text">ویلا</span></a>
                                             </li>
                                         </ul>
                                         <!-- .nk-menu-sub -->
                                     </li>
-
+                                    <li class="nk-menu-item has-sub">
+                                        <a href="/Home/Trade" class="nk-menu-link nk-menu-toggle">
+                                            <span class="nk-menu-icon"><em class="icon ni ni-home-alt"></em></span>
+                                            <span class="nk-menu-text">اجاره مسکونی</span>
+                                        </a>
+                                        <ul class="nk-menu-sub">
+                                            <li class="nk-menu-item">
+                                                <a href="/Home/Add_New_Trade" class="nk-menu-link"><span class="nk-menu-text">آپارتمان</span></a>
+                                            </li>
+                                            <li class="nk-menu-item">
+                                                <a href="/Home/Add_New_Trade_F" class="nk-menu-link"><span class="nk-menu-text">ویلا</span></a>
+                                            </li>
+                                        </ul>
+                                        <!-- .nk-menu-sub -->
+                                    </li>
 
                                     <!-- .nk-menu-item -->
 

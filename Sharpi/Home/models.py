@@ -17,6 +17,8 @@ class Aparteman_buy_details(models.Model):
   #title = models.CharField(max_length=255, default=None)
   city_persian = models.CharField(max_length=255, default=None)
   mahal_persian = models.CharField(max_length=255, default=None)
+  meter = models.CharField(max_length=255, default=None)
+
   class Meta:
     db_table = 'Aparteman_buy_details'
 # Create your models here.
