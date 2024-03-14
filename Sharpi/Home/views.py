@@ -9,4 +9,4 @@ def index_home_section(request):
     print(my_list)
     print(my_list1)
     data_send_to_html = {'Apartments' : my_list1}
-    return render(request, 'index.html', data_send_to_html)
+    return render(request, 'Login/index.html', data_send_to_html)
