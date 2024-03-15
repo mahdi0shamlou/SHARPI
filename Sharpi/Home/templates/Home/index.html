@@ -44,13 +44,13 @@
                                                             <div class="card-title">
                                                                 <h6 class="title">
                                                                     <span class="me-2">اطلاعات</span>
-                                                                    <a href="/Home" class="link d-none d-sm-inline">شماره تلفن</a>
+
                                                                 </h6>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="card-inner p-0 border-top" id="details">
-                                                        hello
+
                                                     </div>
                                                 </div>
 
@@ -89,7 +89,7 @@
                                                             {%for i in Apartments%}
                                                             <div class="nk-tb-item">
                                                                 <div class="nk-tb-col">
-                                                                    <span class="tb-lead"><a class="badge badge-sm badge-dim bg-outline-info d-none d-md-inline-flex" onclick="change_details('{{i.id}}','{{i.token}}','{{i.price}}','{{i.meter}}','{{i.city}}','{{i.mahal_persian}}')">{{i.id}}</a></span>
+                                                                    <span class="tb-lead"><a class="badge badge-sm badge-dim bg-outline-info d-none d-md-inline-flex" onclick="change_details('{{i.id}}','{{i.token}}','{{i.price}}','{{i.meter}}','{{i.city}}','{{i.mahal_persian}}', '{{i.city_persian}}', '{{i.tabagheh}}', '{{i.room}}', {%if i.asansor == 1%}'{{'دارد'}}'{%else%}'{{'ندارد'}}'{%endif%}, {%if i.parking == 1%}'{{'دارد'}}'{%else%}'{{'ندارد'}}'{%endif%}, {%if i.kooler == 1%}'{{'دارد'}}'{%else%}'{{'ندارد'}}'{%endif%}, '{{i.price_total}}', '{{i.price_meter}}', '{{i.title}}', `{{i.desck}}`)">{{i.id}}</a></span>
                                                                 </div>
                                                                 <div class="nk-tb-col tb-col-sm">
                                                                     <div class="user-card">
@@ -103,7 +103,7 @@
                                                                 </div>
 
                                                                 <div class="nk-tb-col">
-                                                                    <span class="tb-sub"><span class="badge bg-outline-secondary">{{i.price}}</span></span>
+                                                                    <span class="tb-sub"><span class="badge bg-outline-secondary">{{i.price_total}}</span></span>
                                                                 </div>
 
                                                                 <div class="nk-tb-col nk-tb-col-action">
@@ -148,20 +148,159 @@
                                     <!-- .nk-block -->
                                 </div>
                             </div>
-                                <button value="x" onclick="change_details('str')">xcxc</button>
+
                         </div>
 
 </div>
 
 <script>
+    change_details();
+    function change_details(id,token,price,meter,city,mahal,city_persian,tabaghh,room,asansor,parking,kooler,price_total,price_meter,title,desck){
+       var x = `
+                           <div class="nk-content">
+                        <div class="container-fluid">
+                            <div class="nk-content-inner">
+                                <div class="nk-content-body">
+                                    <div class="nk-block-head nk-block-head-sm">
+                                        <div class="nk-block-between g-3">
+                                            <div class="nk-block-head-content">
+                                                <h3 class="nk-block-title page-title">آگهی  :  <strong class="text-primary small">`+token+`</strong></h3>
+                                                <h4 class="nk-block-title page-title">عنوان  :  <strong>`+title+`</strong></h3>
+                                            </div>
 
-    function change_details(id,token,price,meter,city,mahal){
-       var x = `<div class="form-group">
-                    <label class="form-label" for="default-01">id</label>
-                    <div class="form-control-wrap">
-                        <input type="text" class="form-control" id="default-01" placeholder="`+token+`">
+                                        </div>
+                                    </div>
+                                    <!-- .nk-block-head -->
+                                    <div class="nk-block">
+                                        <div class="card">
+                                            <div class="card-aside-wrap">
+                                                <div class="card-content">
+                                                    <ul class="nav nav-tabs nav-tabs-mb-icon nav-tabs-card">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link active" href="#"><em class="icon ni ni-notes-alt"></em><span>اطلاعات</span></a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="#"><em class="icon ni ni-img"></em><span>گالر تصاویر</span></a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="#"><em class="icon ni ni-call"></em><span>شماره تلفن</span></a>
+                                                        </li>
+
+                                                    </ul>
+                                                    <!-- .nav-tabs -->
+                                                    <div class="card-inner">
+                                                        <div class="nk-block">
+                                                            <div class="nk-block-head">
+                                                                <h5 class="title">اطلاعات ملک</h5>
+                                                                <p>اطلاعات کلی ملک</p>
+                                                            </div>
+                                                            <!-- .nk-block-head -->
+                                                            <div class="profile-ud-list">
+                                                                <div class="profile-ud-item">
+                                                                    <div class="profile-ud wider">
+                                                                        <span class="profile-ud-label"><em class="icon ni ni-sign-dollar"></em>&nbsp;قیمت متری</span>
+                                                                        <span class="profile-ud-value">`+price_meter+`</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="profile-ud-item">
+                                                                    <div class="profile-ud wider">
+                                                                        <span class="profile-ud-label"><em class="icon ni ni-sign-dollar"></em>&nbsp;قیمت کل</span>
+                                                                        <span class="profile-ud-value">`+price_total+`</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="profile-ud-item">
+                                                                    <div class="profile-ud wider">
+                                                                        <span class="profile-ud-label"> <em class="icon ni ni-meter"></em>&nbsp; متراژ </span>
+                                                                        <span class="profile-ud-value">`+meter+`</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="profile-ud-item">
+                                                                    <div class="profile-ud wider">
+                                                                        <span class="profile-ud-label"><em class="icon ni ni-location"></em>&nbsp; شهر </span>
+                                                                        <span class="profile-ud-value">`+city_persian+`</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="profile-ud-item">
+                                                                    <div class="profile-ud wider">
+                                                                        <span class="profile-ud-label"><em class="icon ni ni-map-pin"></em>&nbsp; محله </span>
+                                                                        <span class="profile-ud-value">`+mahal+`</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="profile-ud-item">
+                                                                    <div class="profile-ud wider">
+                                                                        <span class="profile-ud-label"><em class="icon ni ni-layers-fill"></em>&nbsp;طبقه</span>
+                                                                        <span class="profile-ud-value">`+tabaghh+`</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- .profile-ud-list -->
+                                                        </div>
+
+                                                        <!-- .nk-block -->
+                                                        <div class="nk-block">
+                                                            <div class="nk-block-head nk-block-head-line">
+                                                                <h6 class="title overline-title text-base">اطلاعات تکمیلی</h6>
+                                                            </div>
+                                                            <!-- .nk-block-head -->
+                                                            <div class="profile-ud-list">
+                                                                <div class="profile-ud-item">
+                                                                    <div class="profile-ud wider">
+                                                                        <span class="profile-ud-label">تعداد اتاق</span>
+                                                                        <span class="profile-ud-value">`+room+`</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="profile-ud-item">
+                                                                    <div class="profile-ud wider">
+                                                                        <span class="profile-ud-label">آسانسور</span>
+                                                                        <span class="profile-ud-value">`+asansor+`</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="profile-ud-item">
+                                                                    <div class="profile-ud wider">
+                                                                        <span class="profile-ud-label">پارکینگ</span>
+                                                                        <span class="profile-ud-value">`+parking+`</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="profile-ud-item">
+                                                                    <div class="profile-ud wider">
+                                                                        <span class="profile-ud-label">کولر</span>
+                                                                        <span class="profile-ud-value">`+kooler+`</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- .profile-ud-list -->
+                                                        </div>
+                                                        <hr>
+                                                        <div class="nk-block">
+                                                            <div class="nk-block-head">
+                                                                <h5 class="title">توضیحات ملک</h5>
+                                                                <p>`+desck+`</p>
+                                                            </div>
+                                                            <!-- .nk-block-head -->
+
+                                                            <!-- .profile-ud-list -->
+                                                        </div>
+                                                        <!-- .nk-block -->
+                                                        <div class="nk-divider divider md"></div>
+
+                                                        <!-- .nk-block -->
+                                                    </div>
+                                                    <!-- .card-inner -->
+                                                </div>
+                                                <!-- .card-content -->
+
+                                                <!-- .card-aside -->
+                                            </div>
+                                            <!-- .card-aside-wrap -->
+                                        </div>
+                                        <!-- .card -->
+                                    </div>
+                                    <!-- .nk-block -->
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>`;
+       `;
         document.getElementById("details").innerHTML = x;
     }
 </script>
@@ -196,7 +335,7 @@
                                     </li>
                                     <li class="nk-menu-item has-sub">
                                         <a href="/Home/Trade" class="nk-menu-link nk-menu-toggle">
-                                            <span class="nk-menu-icon"><em class="icon ni ni-home-alt"></em></span>
+                                            <span class="nk-menu-icon"><em class="icon ni ni-building"></em></span>
                                             <span class="nk-menu-text">اجاره مسکونی</span>
                                         </a>
                                         <ul class="nk-menu-sub">

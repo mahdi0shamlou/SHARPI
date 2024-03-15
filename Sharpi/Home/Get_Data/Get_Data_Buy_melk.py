@@ -293,6 +293,7 @@ class Buy_melk_New_details():
                 print('-----------------------------\n')
                     #print(section_listdata['widgets'][0])
                 return_list_of_details.append(0)
+                return_list_of_details.append(desk)
                 # ------------------------------------- end
                 return tuple(return_list_of_details)
             else:
@@ -311,7 +312,7 @@ class Buy_melk_New_details():
                                                  database="SHARPI_HOME")
             cursor = connection.cursor()
 
-            sql_select_query = """INSERT INTO Aparteman_buy_details (id, token, mahal_english, image_count, rent, price, city,title,city_persian,mahal_persian,time_unavailabe,lat_map,long_map,meter,time_make,room,price_total,price_meter,tabagheh,asansor,parking,balkon,shofazh,kooler,kafe_seramick,is_phone_add) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
+            sql_select_query = """INSERT INTO Aparteman_buy_details (id, token, mahal_english, image_count, rent, price, city,title,city_persian,mahal_persian,time_unavailabe,lat_map,long_map,meter,time_make,room,price_total,price_meter,tabagheh,asansor,parking,balkon,shofazh,kooler,kafe_seramick,is_phone_add,desck) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
             # set variable in query
             cursor.execute(sql_select_query, tupel_data)
 
@@ -562,7 +563,8 @@ mysql> DESCRIBE Aparteman_buy_details;
 SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'Aparteman_buy_details'
 ALTER TABLE Aparteman_buy_details MODIFY price BIGINT;
 ALTER TABLE Aparteman_buy_details ADD is_phone_add int;
-
+ALTER TABLE Aparteman_buy_details ADD desck VARCHAR(255);
+ALTER TABLE Aparteman_buy_details MODIFY desck text;
 CREATE TABLE phone_buy_apartment(id INT AUTO_INCREMENT PRIMARY KEY, token_details VARCHAR(20), id_details INT, e_phone VARCHAR(20), p_phone VARCHAR(20));
 mysql> describe phone_buy_apartment;
 +---------------+-------------+------+-----+---------+----------------+
