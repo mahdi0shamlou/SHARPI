@@ -480,7 +480,8 @@ class Buy_melk_New_phone_number():
                 print("MySQL connection is closed")
                 return res_update
     def Start(self):
-        while True:
+        counter = 170
+        while counter>0:
             token, ids = self.Get_token_from_db()
             if ids != 0:
                 print(token)
@@ -493,13 +494,14 @@ class Buy_melk_New_phone_number():
                 except Exception as e:
                     print('EEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRRRROOOOOOOOOOOOOOOOOOOOOOORRRRRRRRRRRRRR')
                     print(e)
-                    #self.update_details_token(ids)
-                    break
+                    self.update_details_token(ids)
+                    #break
             else:
                 print(ids)
                 print(token)
                 break
-
+            counter = counter - 1
+            print(f'Counter is  ----------------------- {counter}')
             #time.sleep(200)
 
 
@@ -510,9 +512,10 @@ x.Start()
 z = Buy_melk_New_details()
 z.Start()
 '''
+'''
 y = Buy_melk_New_phone_number()
 y.Start()
-
+'''
 
 '''
 CREATE TABLE Tokens_alredy_have(id INT AUTO_INCREMENT PRIMARY KEY, token VARCHAR(20));
