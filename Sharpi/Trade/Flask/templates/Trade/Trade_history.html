@@ -67,7 +67,7 @@
                                                         <div class="card-title-group">
                                                             <div class="card-title">
                                                                 <h6 class="title">
-                                                                    <span class="me-2">سفارشات</span>
+                                                                    <span class="me-2">معاملات انجام شده</span>
 
                                                                 </h6>
                                                             </div>
@@ -81,16 +81,15 @@
                                                                     <span>نام دارایی</span>
                                                                 </div>
                                                                 <div class="nk-tb-col tb-col-md">
-                                                                    <span>قیمت ورود</span>
+                                                                    <span>سود</span>
                                                                 </div>
                                                                 <div class="nk-tb-col tb-col-lg">
-                                                                    <span>حجم ورود</span>
+                                                                    <span>اطلاعات</span>
                                                                 </div>
-                                                                <div class="nk-tb-col"><span>نوع معامله</span></div>
-                                                                <div class="nk-tb-col"><span>&nbsp;</span></div>
+
                                                             </div>
 
-                                                            {%for i in list_trades%}
+                                                            {%for i in list_trade_history%}
                                                             <div class="nk-tb-item">
                                                                 <div class="nk-tb-col">
                                                                     <span class="tb-lead"><a class="badge badge-sm badge-dim bg-outline-info d-none d-md-inline-flex" href="/Home/Trade_charts_multi_trade_on_favorits?P_ID={{i[8]}}">{{i['symbol']}}</a></span>
@@ -98,34 +97,17 @@
                                                                 <div class="nk-tb-col tb-col-sm">
                                                                     <div class="user-card">
                                                                         <div class="user-name">
-                                                                            <span class="tb-lead">{{i['price']}}</span>
+
+                                                                                <span class="tb-sub"><span class="badge badge-sm badge-dim bg-outline-primary d-none d-md-inline-flex">{{i['income']}}</span></span>
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="nk-tb-col tb-col-md">
-                                                                    <span class="tb-sub">{{i['origQty']}}</span>
+                                                                    <span class="tb-sub">{{i['info']}}</span>
                                                                 </div>
 
-                                                                {%if i['side'] == 'BUY'%}
-                                                                    <div class="nk-tb-col">
-                                                                        <span class="tb-sub"><span class="badge rounded-pill bg-success">{{i['side']}}</span></span>
-                                                                    </div>
-                                                                {%else%}
-                                                                    <div class="nk-tb-col">
-                                                                        <span class="tb-sub"><span class="badge rounded-pill bg-danger">{{i['side']}}</span></span>
-                                                                    </div>
-                                                                {%endif%}
-                                                                <div class="nk-tb-col nk-tb-col-action">
-                                                                    <div class="dropdown">
-                                                                        <a class="text-soft dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                                                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-xs">
-                                                                            <ul class="link-list-plain">
-                                                                                <li><a href="/Home/Trade_charts_multi_trade_on_favorits?P_ID={{i[8]}}"><em class="icon ni ni-bar-chart-alt"></em><span>نمودار</span></a></li>
-                                                                                <li><a href="/Home/Delet_F?P_ID={{i[8]}}"><em class="icon ni ni-trash"></em><span>حذف</span></a></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+
                                                             </div>
                                                             {%endfor%}
                                                         </div>

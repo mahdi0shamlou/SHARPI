@@ -3,6 +3,7 @@ from flask_session.__init__ import Session
 from datetime import timedelta, datetime
 from Login.login import Check_login
 from Trades.main import demo_list_open_order
+from Trades.Trade_history import trade_history
 import requests
 
 app = Flask(__name__)
@@ -116,7 +117,9 @@ def App_Trade():
         else:
             path = session.get('Path')
             rr = int(request.args.get("rr"))
-            return render_template("/Trade/Trade_history.html", user=session.get('Username'), pathmain=path, email=session.get('email'))
+            obj_trade_history = trade_history(rr)
+            list_trade_history = obj_trade_history.start()
+            return render_template("/Trade/Trade_history.html", list_trade_history=list_trade_history, user=session.get('Username'), pathmain=path, email=session.get('email'))
     except:
         return render_template("/Error/index.html")
 
