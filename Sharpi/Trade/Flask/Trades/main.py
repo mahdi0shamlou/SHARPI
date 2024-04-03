@@ -48,7 +48,6 @@ def parseParam_cancel(paramsMap):
     else:
      return paramsStr+"timestamp="+str(int(time.time() * 1000))
 
-
 if __name__ == '__main__':
     x = demo_list_open_order()
     print("demo:", demo_list_open_order())

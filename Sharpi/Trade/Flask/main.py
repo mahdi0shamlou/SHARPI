@@ -106,5 +106,19 @@ def App_main_page():
     except:
         return render_template("/Error/index.html")
 
+
+@app.route("/Home/Trade", methods=["POST", "GET"])
+def App_Trade():
+    try:
+        if not session.get("Username"):
+            return render_template("/Login/index.html")
+
+        else:
+            rr = int(request.args.get("rr"))
+            
+    except:
+        return render_template("/Error/index.html")
+
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True, port=1001)
