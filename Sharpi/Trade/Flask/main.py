@@ -115,7 +115,7 @@ def App_Trade():
 
         else:
             rr = int(request.args.get("rr"))
-            
+            return render_template("/Trade/Trade_history.html")
     except:
         return render_template("/Error/index.html")
 
