@@ -114,8 +114,9 @@ def App_Trade():
             return render_template("/Login/index.html")
 
         else:
+            path = session.get('Path')
             rr = int(request.args.get("rr"))
-            return render_template("/Trade/Trade_history.html")
+            return render_template("/Trade/Trade_history.html", user=session.get('Username'), pathmain=path, email=session.get('email'))
     except:
         return render_template("/Error/index.html")
 
