@@ -4,6 +4,7 @@ from datetime import timedelta, datetime
 from Login.login import Check_login
 from Trades.main import demo_list_open_order
 from Trades.Trade_history import trade_history
+from Asset.main import Assets
 import requests
 
 app = Flask(__name__)
@@ -131,10 +132,10 @@ def App_Asset():
         else:
             path = session.get('Path')
             rr = int(request.args.get("rr"))
+            obj_Assets = Assets(rr)
+            Asset_list = obj_Assets.start()
 
-            obj_trade_history = trade_history(rr)
-            list_trade_history = obj_trade_history.start()
-            return render_template("/Asset/index.html",len_list_trade_history=len(list_trade_history), list_trade_history=list_trade_history, user=session.get('Username'), pathmain=path, email=session.get('email'))
+            return render_template("/Asset/index.html", Asset_list=Asset_list, user=session.get('Username'), pathmain=path, email=session.get('email'))
     except:
         return render_template("/Error/index.html")
 if __name__ == "__main__":

@@ -39,70 +39,14 @@
                                     <div class="nk-block">
                                         <div class="row g-gs">
 
-                                            <!-- .col -->
-
-                                            <!-- .col -->
-                                            <div class="col-xxl-8">
+                                            <div class="col-xxl-12">
                                                 <div class="card card-bordered card-full">
+                                                    <div class="card card-bordered card-full">
                                                     <div class="card-inner">
                                                         <div class="card-title-group">
                                                             <div class="card-title">
                                                                 <h6 class="title">
-                                                                    <span class="me-2">نمودار</span>
-                                                                    <a href="/Home" class="link d-none d-sm-inline">بروزرسانی</a>
-                                                                </h6>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div id="chartContainer" style="width: 100%;"></div>
-                                                </div>
-
-
-                                                <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-                                                <script>
-window.onload = function () {
-
-var chart = new CanvasJS.Chart("chartContainer", {
-	animationEnabled: true,
-	theme: "light2", // "light1", "light2", "dark1", "dark2"
-	title:{
-		text: "Trade History"
-	},
-	axisY: {
-		title: "Profit"
-	},
-	data: [{
-		type: "column",
-		showInLegend: true,
-		legendMarkerColor: "grey",
-		legendText: "Index Trade",
-		dataPoints: [
-            {%for i in list_trade_history%}
-                {%if i['income'] > 0%}
-                        { y: {{i['income']}}, label: "{{i['info']}}" , color: "green"},
-                {%else%}
-                        { y: {{i['income']}}, label: "{{i['info']}}" , color: "red"},
-                {%endif%}
-
-            {%endfor%}
-		]
-	}]
-});
-chart.render();
-
-}
-</script>
-
-                                            </div>
-                                            <!-- .col -->
-                                            <div class="col-md-6 col-xxl-4">
-                                                <div class="card card-bordered card-full">
-                                                    <div class="card-inner">
-                                                        <div class="card-title-group">
-                                                            <div class="card-title">
-                                                                <h6 class="title">
-                                                                    <span class="me-2">معاملات انجام شده</span>
-
+                                                                    <span class="me-2">اطلاعات</span>
                                                                 </h6>
                                                             </div>
                                                         </div>
@@ -112,52 +56,87 @@ chart.render();
                                                         <div class="nk-tb-list nk-tb-orders">
                                                             <div class="nk-tb-item nk-tb-head">
                                                                 <div class="nk-tb-col tb-col-sm">
-                                                                    <span>نام دارایی</span>
+                                                                    <span>شماره کاربر</span>
                                                                 </div>
                                                                 <div class="nk-tb-col tb-col-md">
-                                                                    <span>سود</span>
+                                                                    <span>نوع دارایی</span>
                                                                 </div>
                                                                 <div class="nk-tb-col tb-col-lg">
-                                                                    <span>اطلاعات</span>
+                                                                    <span>مقدار دارایی</span>
                                                                 </div>
-
+                                                                <div class="nk-tb-col tb-col-lg">
+                                                                    <span>مقدار اصلی دارایی</span>
+                                                                </div>
+                                                                <div class="nk-tb-col tb-col-lg">
+                                                                    <span>سود دارایی</span>
+                                                                </div>
+                                                                <div class="nk-tb-col tb-col-lg">
+                                                                    <span>سود اصلی دارایی</span>
+                                                                </div>
+                                                                <div class="nk-tb-col tb-col-lg">
+                                                                    <span>دارایی در دسترس</span>
+                                                                </div>
+                                                                <div class="nk-tb-col tb-col-lg">
+                                                                    <span>دارایی در سفارش</span>
+                                                                </div>
                                                             </div>
 
-                                                            {%for i in list_trade_history%}
+
                                                             <div class="nk-tb-item">
                                                                 <div class="nk-tb-col">
-                                                                    <span class="tb-lead"><a class="badge badge-sm badge-dim bg-outline-info d-none d-md-inline-flex" href="/Home/Trade_charts_multi_trade_on_favorits?P_ID={{i[8]}}">{{i['symbol']}}</a></span>
+                                                                    <span class="tb-lead"><a class="" href="#">{{Asset_list['userId']}}</a></span>
                                                                 </div>
-                                                                <div class="nk-tb-col tb-col-sm">
-                                                                    <div class="user-card">
-                                                                        <div class="user-name">
-                                                                                {%if i['income'] > 0%}
-                                                                                        <span class="tb-sub"><span class="badge rounded-pill bg-success">{{i['income']}}</span></span>
-                                                                                {%else%}
-                                                                                        <span class="tb-sub"><span class="badge rounded-pill bg-danger">{{i['income']}}</span></span>
-                                                                                {%endif%}
-                                                                        </div>
-                                                                    </div>
+                                                                <div class="nk-tb-col">
+                                                                    <span class="tb-lead"><a class="badge badge-sm badge bg-outline-info d-none d-md-inline-flex" href="#">{{Asset_list['asset']}}</a></span>
                                                                 </div>
                                                                 <div class="nk-tb-col tb-col-md">
-                                                                    <span class="tb-sub">{{i['info']}}</span>
+                                                                    <span class="tb-sub">{{Asset_list['balance']}}</span>
                                                                 </div>
+                                                                <div class="nk-tb-col tb-col-md">
+                                                                    <span class="tb-sub">{{Asset_list['equity']}}</span>
+                                                                </div>
+                                                                <div class="nk-tb-col tb-col-md">
+                                                                    {%if Asset_list['unrealizedProfit'] > 0%}
+                                                                            <span class="tb-sub"><span class="badge rounded-pill bg-success">{{Asset_list['unrealizedProfit']}}</span></span>
+                                                                    {%elif Asset_list['unrealizedProfit'] < 0%}
+                                                                            <span class="tb-sub"><span class="badge rounded-pill bg-danger">{{Asset_list['unrealizedProfit']}}</span></span>
+                                                                    {%else%}
+                                                                            <span class="tb-sub"><span class="badge rounded-pill bg-info">{{Asset_list['unrealizedProfit']}}</span></span>
+                                                                    {%endif%}
 
+                                                                </div>
+                                                                <div class="nk-tb-col tb-col-md">
+                                                                    {%if Asset_list['realisedProfit'] > 0%}
+                                                                            <span class="tb-sub"><span class="badge rounded-pill bg-success">{{Asset_list['realisedProfit']}}</span></span>
+                                                                    {%elif Asset_list['realisedProfit'] < 0%}
+                                                                            <span class="tb-sub"><span class="badge rounded-pill bg-danger">{{Asset_list['realisedProfit']}}</span></span>
+                                                                    {%else%}
+                                                                            <span class="tb-sub"><span class="badge rounded-pill bg-info">{{Asset_list['realisedProfit']}}</span></span>
+                                                                    {%endif%}
 
+                                                                </div>
+                                                                <div class="nk-tb-col tb-col-md">
+                                                                    <span class="tb-sub"><span class="badge badge-sm badge bg-outline-dark d-none d-md-inline-flex">{{Asset_list['availableMargin']}}</span></span>
+                                                                </div>
+                                                                <div class="nk-tb-col tb-col-md">
+                                                                    <span class="tb-sub"><span class="badge badge-sm badge-dim bg-outline-dark d-none d-md-inline-flex">{{Asset_list['freezedMargin']}}</span></span>
+                                                                </div>
                                                             </div>
-                                                            {%endfor%}
+
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- .card -->
-                                            </div>
-                                            <!-- .col -->
+                                                </div>
 
-                                            <!-- .col -->
+
+
+
+                                            </div>
+
                                         </div>
-                                        <!-- .row -->
+
                                     </div>
-                                    <!-- .nk-block -->
+
                                 </div>
                             </div>
                         </div>
