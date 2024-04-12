@@ -123,6 +123,19 @@ def App_Trade():
     except:
         return render_template("/Error/index.html")
 
+@app.route("/Home/Asset", methods=["POST", "GET"])
+def App_Trade():
+    try:
+        if not session.get("Username"):
+            return render_template("/Login/index.html")
+        else:
+            path = session.get('Path')
+            rr = int(request.args.get("rr"))
 
+            obj_trade_history = trade_history(rr)
+            list_trade_history = obj_trade_history.start()
+            return render_template("/Trade/Trade_history.html",len_list_trade_history=len(list_trade_history), list_trade_history=list_trade_history, user=session.get('Username'), pathmain=path, email=session.get('email'))
+    except:
+        return render_template("/Error/index.html")
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True, port=1001)
