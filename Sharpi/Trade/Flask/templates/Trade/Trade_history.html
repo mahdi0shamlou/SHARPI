@@ -54,10 +54,44 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
+                                                    <div id="chartContainer" style="width: 100%;"></div>
                                                 </div>
 
 
+                                                <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+                                                <script>
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	theme: "light2", // "light1", "light2", "dark1", "dark2"
+	title:{
+		text: "Trade History"
+	},
+	axisY: {
+		title: "Profit"
+	},
+	data: [{
+		type: "column",
+		showInLegend: true,
+		legendMarkerColor: "grey",
+		legendText: "Index Trade",
+		dataPoints: [
+            {%for i in list_trade_history%}
+                {%if i['income'] > 0%}
+                        { y: {{i['income']}}, label: "{{i['info']}}" , color: "green"},
+                {%else%}
+                        { y: {{i['income']}}, label: "{{i['info']}}" , color: "red"},
+                {%endif%}
+
+            {%endfor%}
+		]
+	}]
+});
+chart.render();
+
+}
+</script>
 
                                             </div>
                                             <!-- .col -->
@@ -97,9 +131,11 @@
                                                                 <div class="nk-tb-col tb-col-sm">
                                                                     <div class="user-card">
                                                                         <div class="user-name">
-
-                                                                                <span class="tb-sub"><span class="badge badge-sm badge-dim bg-outline-primary d-none d-md-inline-flex">{{i['income']}}</span></span>
-
+                                                                                {%if i['income'] > 0%}
+                                                                                        <span class="tb-sub"><span class="badge rounded-pill bg-success">{{i['income']}}</span></span>
+                                                                                {%else%}
+                                                                                        <span class="tb-sub"><span class="badge rounded-pill bg-danger">{{i['income']}}</span></span>
+                                                                                {%endif%}
                                                                         </div>
                                                                     </div>
                                                                 </div>

@@ -58,6 +58,8 @@ class trade_history:
         print(list_trade['data'])
         for i in range(0, len(list_trade['data'])):
             if list_trade['data'][i]['incomeType'] == 'REALIZED_PNL':
+
+                list_trade['data'][i]['income'] = float(list_trade['data'][i]['income'])
                 print(list_trade['data'][i])
                 list_return.append(list_trade['data'][i])
         return list_return
