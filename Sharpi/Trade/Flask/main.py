@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, request, session, json
 from flask_session.__init__ import Session
 from datetime import timedelta, datetime
 from Login.login import Check_login
-from Trades.main import demo_list_open_order
+from Trades.main import demo_list_open_order, demo_list_open_order_eth
 from Trades.Trade_history import trade_history
 from Asset.main import Assets
 import requests
@@ -97,14 +97,37 @@ def App_main_page():
                 array_data_Close.append(float(i['close']))
                 array_data_Volume.append(float(i['volume']))
             list_trades = demo_list_open_order()
+            list_trades_eth = demo_list_open_order_eth()
             print(list_trades)
             window = 600
+
+
+            url = f"https://open-api.bingx.com/openApi/swap/v2/quote/klines?symbol=ETH-USDT&interval=5m&startTime=1578492800000&endTime={int(now.timestamp() * 1000)}&limit=1440"
+            headers = {'x-api-key': '09ba90f6-dcd0-42c0-8c13-5baa6f2377d0'}
+
+            resp = requests.get(url, headers=headers)
+            x = resp.json()
+            array_data = []
+            array_data_Date_eth = []
+            array_data_Open_eth = []
+            array_data_High_eth = []
+            array_data_Low_eth = []
+            array_data_Close_eth = []
+            array_data_Volume_eth = []
+            print(resp)
+            for i in x['data']:
+                array_data_Date_eth.append(str(i['time']))
+                array_data_Open_eth.append(float(i['open']))
+                array_data_High_eth.append(float(i['high']))
+                array_data_Low_eth.append(float(i['low']))
+                array_data_Close_eth.append(float(i['close']))
+                array_data_Volume_eth.append(float(i['volume']))
             return render_template("/Home/index.html",open=array_data_Open[len(array_data_Open) - window:],
                            close=array_data_Close[len(array_data_Close) - window:],
                            high=array_data_High[len(array_data_High) - window:],
                            low=array_data_Low[len(array_data_Low) - window:],
                            date=array_data_Date[len(array_data_Date) - window:],
-                           valoum=array_data_Volume[len(array_data_Volume) - window:], window=600, list_trades=list_trades, user=session.get('Username'), pathmain=path, email=session.get('email'))
+                           valoum=array_data_Volume[len(array_data_Volume) - window:], open_eth = array_data_Open_eth[len(array_data_Open) - window:], close_eth = array_data_Close_eth[len(array_data_Open) - window:], high_eth = array_data_High_eth[len(array_data_Open) - window:], low_eth = array_data_Low_eth[len(array_data_Open) - window:], window=600, list_trades=list_trades, user=session.get('Username'), pathmain=path, email=session.get('email'), list_trades_eth=list_trades_eth)
     except:
         return render_template("/Error/index.html")
 

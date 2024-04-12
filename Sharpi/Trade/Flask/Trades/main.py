@@ -28,6 +28,27 @@ def demo_list_open_order():
     for i in x['data']['orders']:
         print("demo:", i['orderId'])
     return x['data']['orders']
+
+def demo_list_open_order_eth():
+    url = "https://open-api.bingx.com/openApi/v2/common/server/time"
+    headers = {'x-api-key': '09ba90f6-dcd0-42c0-8c13-5baa6f2377d0'}
+    resp = requests.get(url, headers=headers)
+    x = resp.json()
+    timestamp = x['timestamp']
+    payload = {}
+    path = '/openApi/swap/v2/trade/openOrders'
+    method = "GET"
+    paramsMap = {
+    "symbol": "ETH-USDT",
+    "timestamp": timestamp
+    }
+
+    paramsStr = parseParam_cancel(paramsMap)
+    x = send_request_cancel(method, path, paramsStr, payload)
+    x = json.loads(x)
+    for i in x['data']['orders']:
+        print("demo:", i['orderId'])
+    return x['data']['orders']
 def get_sign_cancel(api_secret, payload):
     signature = hmac.new(api_secret.encode("utf-8"), payload.encode("utf-8"), digestmod=sha256).hexdigest()
     print("sign=" + signature)
