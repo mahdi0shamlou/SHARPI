@@ -128,7 +128,8 @@ def App_main_page():
                            low=array_data_Low[len(array_data_Low) - window:],
                            date=array_data_Date[len(array_data_Date) - window:],
                            valoum=array_data_Volume[len(array_data_Volume) - window:], open_eth = array_data_Open_eth[len(array_data_Open) - window:], close_eth = array_data_Close_eth[len(array_data_Open) - window:], high_eth = array_data_High_eth[len(array_data_Open) - window:], low_eth = array_data_Low_eth[len(array_data_Open) - window:], window=600, list_trades=list_trades, user=session.get('Username'), pathmain=path, email=session.get('email'), list_trades_eth=list_trades_eth)
-    except:
+    except Exception as e:
+        print(e)
         return render_template("/Error/index.html")
 
 
